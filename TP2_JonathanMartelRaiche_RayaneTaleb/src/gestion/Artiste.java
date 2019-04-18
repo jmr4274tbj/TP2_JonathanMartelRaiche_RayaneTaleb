@@ -5,11 +5,11 @@ import java.sql.Blob;
 public class Artiste {
 	private int artisteId;
 	private String nom;
-	private boolean membre;
+	private int membre;
 	private Blob photo;
 	
 	//Constructeur
-	public Artiste(int artisteId, String nom, boolean membre, Blob photo){
+	public Artiste(int artisteId, String nom, int membre, Blob photo){
 		this.artisteId = artisteId;
 		this.nom = nom;
 		this.membre = membre;
@@ -24,7 +24,7 @@ public class Artiste {
 		return nom;
 	}
 
-	public boolean getMembre() {
+	public int getMembre() {
 		return membre;
 	}
 	
