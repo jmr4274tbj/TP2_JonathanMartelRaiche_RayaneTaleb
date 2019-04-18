@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 public class ControleConnexion {
 	/**  
 	 * L'intérêt d'une connexion statique est de disposer d'une connexion unique durant toute une session.  
-	 */
+	*/
 
 	private static Connection laConnexion; 
 	//private static String  url = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=c:/bd/employes.accdb"; 
@@ -15,7 +15,7 @@ public class ControleConnexion {
 	
 	/** 
 	 * Établit la connexion à la BDD si elle n'existe pas. Attention, la connexion ne doit pas être fermée 
-	 */	
+	*/	
 	public static void connecter() {  
 		try{   
 			if(laConnexion == null || laConnexion.isClosed()) {      
