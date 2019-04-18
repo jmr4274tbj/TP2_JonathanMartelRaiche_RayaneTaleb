@@ -92,13 +92,12 @@ public class FenetreArtistes extends JFrame {
 		JPanel pan = new JPanel(new GridBagLayout());    
 		GridBagConstraints gbc = new GridBagConstraints();
 		  	   
-	    gbc.insets = new Insets(0, 0, 5, 5);
+	    gbc.insets = new Insets(10, 10, 10, 10);
 		gbc.fill = GridBagConstraints.BOTH;
 		
 		gbc.weightx = 0;
 		gbc.weighty = 0;	
 	
-		gbc.insets = new Insets(0, 0, 5, 5);
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		pan.add(lblRechercherUnArtiste, gbc);
