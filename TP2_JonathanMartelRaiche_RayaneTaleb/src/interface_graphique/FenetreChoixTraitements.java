@@ -1,20 +1,26 @@
 package interface_graphique;
 
 import java.awt.FlowLayout;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+import gestion.ListenerFenetreChoixTraitements;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
-public class FenetreChoixTraitements extends JFrame {
+
+public class FenetreChoixTraitements extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnArtistes;
 	private JButton btnAlbums;
 	private JButton btnQuitter;
+	//private FenetreIdentification parent;
+	private FenetreArtistes fa = new FenetreArtistes(this);
 
-	public FenetreChoixTraitements() {
+	public FenetreChoixTraitements(FenetreIdentification parent) {
+		super( parent, true );
 		setTitle("Choix des traitements");
 		setSize(300, 80);
+		//this.parent = parent;
 		
 		btnArtistes = new JButton("Artistes");
 
@@ -29,14 +35,16 @@ public class FenetreChoixTraitements extends JFrame {
 		pan.add(btnQuitter);
 			
 		add(pan);
-		setResizable(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-	}
-	
-	public static void main(String[] args) {
-		JFrame fenetre = new FenetreChoixTraitements();
-		fenetre.setVisible(true);
+		ListenerFenetreChoixTraitements gestion = new ListenerFenetreChoixTraitements(fa, btnArtistes, btnAlbums, btnQuitter);
+		btnArtistes.addActionListener(gestion);
+		btnAlbums.addActionListener(gestion);
+		btnQuitter.addActionListener(gestion);
+		
+		setResizable(true);
+		setLocationRelativeTo(parent);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
 	}
 	
 }

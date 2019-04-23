@@ -10,7 +10,6 @@ public class ControleConnexion {
 	*/
 
 	private static Connection laConnexion; 
-	//private static String  url = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=c:/bd/employes.accdb"; 
 	private static String  url = "jdbc:sqlite:sqlite/db/biblioteque_musicale.db";
 	
 	/** 
@@ -19,11 +18,10 @@ public class ControleConnexion {
 	public static void connecter() {  
 		try{   
 			if(laConnexion == null || laConnexion.isClosed()) {      
-			//Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");  
-			Class.forName("org.sqlite.JDBC");
-			laConnexion= DriverManager.getConnection(url);    
-			JOptionPane.showMessageDialog(null, "Connect\u00E9 à la BD", "ALERTE",                      
-					JOptionPane.INFORMATION_MESSAGE);    
+				//Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");  
+				Class.forName("org.sqlite.JDBC");
+				laConnexion = DriverManager.getConnection(url);    
+				JOptionPane.showMessageDialog(null, "Connect\u00E9 à la BD", "ALERTE", JOptionPane.INFORMATION_MESSAGE);    
 			}    
 		
 		} catch(ClassNotFoundException e) { 
@@ -36,7 +34,7 @@ public class ControleConnexion {
 	  
 	public static void fermerSession(){  
 		try{   
-			if (laConnexion!=null  && !laConnexion.isClosed()) {
+			if (laConnexion != null && !laConnexion.isClosed()) {
 				laConnexion.close();
 			} 
 		}  
@@ -46,14 +44,16 @@ public class ControleConnexion {
 	} 
 	
 	public static Connection getLaConnexion() {
-		return laConnexion; 
-		
+		ControleConnexion.connecter();
+		return laConnexion; 	
 	} 
 	
-	//POUR TESTER
+	
+	/*//POUR TESTER
 	public static void main(String args[]) {
 		connecter();
-	}
+	}*/
+	
 	 
 
 }

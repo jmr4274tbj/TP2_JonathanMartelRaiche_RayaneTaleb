@@ -4,16 +4,23 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
+import gestion.ControleConnexion;
+import gestion.GestionArtistes;
+import gestion.ListenerFenetreArtistes;
+import gestion.ModeleArtiste;
 import java.awt.Insets;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class FenetreArtistes extends JFrame {
+public class FenetreArtistes extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblRechercherUnArtiste;
@@ -22,6 +29,7 @@ public class FenetreArtistes extends JFrame {
 	private JButton btnQuitter;
 	private JLabel lblArtistes;
 	private JLabel lblImageArtiste;
+	private ImageIcon image;
 	private JButton btnRemplacer;
 	private JLabel lblInformations;
 	private JLabel lblNumro;
@@ -36,12 +44,18 @@ public class FenetreArtistes extends JFrame {
 	private JButton btnSupprimer;
 	private JLabel lblImageAlbum;
 	private static JTable jtableArtistes;
+	//private static DefaultListModel<String> modelAlbums;
 	private static JList<String> jlistAlbums = new JList<String>();
-	private static JScrollPane scroListeArtistes = new JScrollPane(jlistAlbums);
+	private static JScrollPane scroListeArtistes;
+	private ModeleArtiste modeleArtiste;
+	private GestionArtistes gestionArtiste = new GestionArtistes();
+	//private FenetreChoixTraitements parent;
 
-	public FenetreArtistes() {
+	public FenetreArtistes(FenetreChoixTraitements parent) {
+		super( parent, true );
 		setTitle("Gestion des artistes");
-		setSize(903, 565);
+		setSize(1200, 1200);
+		//this.parent = parent;
 		
 		lblRechercherUnArtiste = new JLabel("Rechercher un artiste");
 		
@@ -55,7 +69,12 @@ public class FenetreArtistes extends JFrame {
 		
 		lblArtistes = new JLabel("Artistes");
 
-		lblImageArtiste = new JLabel("Image");
+		lblImageArtiste = new JLabel();
+		//lblImageArtiste.setPreferredSize(new Dimension(30, 30));
+		// TEST
+		image = new ImageIcon(ListenerFenetreArtistes.class.getResource("image_artiste_default.png"));
+		lblImageArtiste.setIcon(image);
+		// FIN TEST
 
 		btnRemplacer = new JButton("Remplacer");
 
@@ -85,9 +104,22 @@ public class FenetreArtistes extends JFrame {
 
 		btnSupprimer = new JButton("Supprimer");
 
-		lblImageAlbum = new JLabel("Image");
-
-		jtableArtistes = new JTable();
+		lblImageAlbum = new JLabel();		
+		//lblImageAlbum.setPreferredSize(new Dimension(30, 30));
+		// TEST
+		lblImageAlbum.setIcon(image);
+		// FIN TEST
+		
+		modeleArtiste = new ModeleArtiste(gestionArtiste.getListeArtistes()) ;
+		jtableArtistes = new JTable(modeleArtiste);
+		jtableArtistes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scroListeArtistes = new JScrollPane(jtableArtistes);
+		
+		/*modeleEmploye = new ModeleEmploye(initialiserEmployes()) ;
+		tableEmployes= new JTable(modeleEmploye );
+		tableEmployes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);// sélection simple
+		ascensseur=new JScrollPane(tableEmployes);	
+		add(ascensseur);*/
 		
 		JPanel pan = new JPanel(new GridBagLayout());    
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -131,7 +163,7 @@ public class FenetreArtistes extends JFrame {
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 3;
 		gbc.gridy = 5;
-		pan.add(jtableArtistes, gbc);
+		pan.add(scroListeArtistes, gbc);
 
 		gbc.gridx = 9;
 		gbc.gridy = 5;
@@ -191,14 +223,35 @@ public class FenetreArtistes extends JFrame {
 		pan.add(chckbxMembre, gbc);
 
 		add(pan);
+		
+		ListenerFenetreArtistes gestion = new ListenerFenetreArtistes(txtRecherche, btnRecherche, btnQuitter, 
+				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
+				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste);
+		txtRecherche.addActionListener(gestion);
+		btnRecherche.addActionListener(gestion); 
+		btnQuitter.addActionListener(gestion); 
+		btnRemplacer.addActionListener(gestion); 
+		chckbxMembre.addActionListener(gestion);
+		txtNumro.addActionListener(gestion); 
+		txtNom.addActionListener(gestion); 
+		btnNouveau.addActionListener(gestion); 
+		btnAjouter.addActionListener(gestion); 
+		btnModifier.addActionListener(gestion); 
+		btnSupprimer.addActionListener(gestion); 
+		
 		setResizable(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(parent);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			
 	}
 	
-	public static void main(String[] args) {
-		JFrame fenetre = new FenetreArtistes();
-		fenetre.setVisible(true);
-	}
+	/*private ArrayList<Artiste> initialiserArtistes(){
+		ArrayList<Artiste> listeArtistes= new ArrayList<Artiste>();
+		
+			listeEmployes.add(new  Employe("100", "Menard", 65963, "Technicien", true));
+			listeEmployes.add(new  Employe("101", "Belanger", 90000, "Directeur", false));
+			listeEmployes.add(new  Employe("102", "Azaro", 35000, "receptioniste", true ));
+		return listeEmployes;
+	}*/
 	
 }

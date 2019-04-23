@@ -13,7 +13,7 @@ public class Album {
 	//Constructeur
 	public Album(int albumId, int artisteId, String titre, String genre, String annee, Blob couverture ){
 		this.artisteId = artisteId;
-		this.albumId = artisteId;
+		this.albumId = albumId;
 		this.titre = titre;
 		this.genre = genre;
 		this.annee = annee;

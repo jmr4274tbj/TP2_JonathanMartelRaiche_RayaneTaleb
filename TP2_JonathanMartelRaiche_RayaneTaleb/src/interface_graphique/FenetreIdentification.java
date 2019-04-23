@@ -8,8 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import gestion.ListenerFenetreIndentification;
 import javax.swing.JButton;
 import java.awt.Font;
+
 
 public class FenetreIdentification extends JFrame {
 
@@ -21,14 +23,7 @@ public class FenetreIdentification extends JFrame {
 	private JTextField txtNomDutilisateur;
 	private JTextField txtMotDePasse;
 	private JButton btnQuitter;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		JFrame fenetre = new FenetreIdentification();
-		fenetre.setVisible(true);
-	}
+	private FenetreChoixTraitements fct = new FenetreChoixTraitements(this);
 
 	/**
 	 * Create the frame.
@@ -48,13 +43,13 @@ public class FenetreIdentification extends JFrame {
 
 		txtNomDutilisateur = new JTextField(10);
 		txtNomDutilisateur.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtNomDutilisateur.setText("nom d'utilisateur");
-		txtNomDutilisateur.setColumns(10);
+		txtNomDutilisateur.setText("bobleprogrammeur");
+		//txtNomDutilisateur.setColumns(10);
 
 		txtMotDePasse = new JTextField(10);
 		txtMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtMotDePasse.setText("mot de passe");
-		txtMotDePasse.setColumns(10);
+		txtMotDePasse.setText("bob1234");
+		//txtMotDePasse.setColumns(10);
 
 		btnValider = new JButton("Valider");
 		btnQuitter = new JButton("Quitter");
@@ -93,7 +88,13 @@ public class FenetreIdentification extends JFrame {
 		add(pan);
 		setLayout(new FlowLayout()); 
 		add(btnValider);	
-		add(btnQuitter);
+		add(btnQuitter);	
+		
+		ListenerFenetreIndentification gestion = new ListenerFenetreIndentification(fct, btnValider, txtNomDutilisateur, txtMotDePasse, btnQuitter);
+		btnValider.addActionListener(gestion);
+		txtNomDutilisateur.addActionListener(gestion);
+		txtMotDePasse.addActionListener(gestion);
+		btnQuitter.addActionListener(gestion);
 		
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
