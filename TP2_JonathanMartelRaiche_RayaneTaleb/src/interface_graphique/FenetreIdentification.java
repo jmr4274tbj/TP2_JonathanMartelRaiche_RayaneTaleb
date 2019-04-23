@@ -2,6 +2,7 @@ package interface_graphique;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -21,7 +22,7 @@ public class FenetreIdentification extends JFrame {
 	private JLabel lblConnexionLapplication;
 	private JButton btnValider;
 	private JTextField txtNomDutilisateur;
-	private JTextField txtMotDePasse;
+	private JPasswordField txtMotDePasse;
 	private JButton btnQuitter;
 	private FenetreChoixTraitements fct = new FenetreChoixTraitements(this);
 
@@ -46,9 +47,10 @@ public class FenetreIdentification extends JFrame {
 		txtNomDutilisateur.setText("bobleprogrammeur");
 		//txtNomDutilisateur.setColumns(10);
 
-		txtMotDePasse = new JTextField(10);
+		txtMotDePasse = new JPasswordField(10);
 		txtMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtMotDePasse.setText("bob1234");
+		txtMotDePasse.setEchoChar('*');
 		//txtMotDePasse.setColumns(10);
 
 		btnValider = new JButton("Valider");
