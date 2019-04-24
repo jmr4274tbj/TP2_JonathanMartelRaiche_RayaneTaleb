@@ -4,8 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		FenetreIdentification fenetre = new FenetreIdentification();
-		fenetre.setVisible(true);
-
+		fenetre.setVisible(true); 
 	}
 
 }

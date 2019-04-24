@@ -44,7 +44,7 @@ public class ControleConnexion {
 	} 
 	
 	public static Connection getLaConnexion() {
-		ControleConnexion.connecter();
+		//ControleConnexion.connecter();
 		return laConnexion; 	
 	} 
 	
