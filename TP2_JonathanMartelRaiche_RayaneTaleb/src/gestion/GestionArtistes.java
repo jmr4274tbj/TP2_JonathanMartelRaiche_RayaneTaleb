@@ -116,8 +116,4 @@ public class GestionArtistes {
 		return boolSupp;	   
 	} 
 	
-	// POUR TESTER
-	/*public static void main(String[] args) {
-		
-	}*/
 }

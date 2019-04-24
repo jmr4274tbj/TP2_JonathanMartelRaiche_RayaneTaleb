@@ -44,12 +44,14 @@ public class ControleConnexion {
 	} 
 	
 	public static Connection getLaConnexion() {
-		//ControleConnexion.connecter();
+		ControleConnexion.connecter();
 		return laConnexion; 	
 	} 
 	
 	
-	/*//POUR TESTER
+	
+	//POUR TESTER
+	/*
 	public static void main(String args[]) {
 		connecter();
 	}*/
