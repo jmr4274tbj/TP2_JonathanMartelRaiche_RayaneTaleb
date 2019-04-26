@@ -44,6 +44,7 @@ public class GestionArtistes {
 			JOptionPane.showMessageDialog(null,          
 			"Problème rencontr\u00E8 : " + sqle.getMessage(),   
 			"Résultat", JOptionPane.ERROR_MESSAGE);  
+			sqle.printStackTrace();
 		}
 		
 		return liste; 	
@@ -116,4 +117,8 @@ public class GestionArtistes {
 		return boolSupp;	   
 	} 
 	
+	// POUR TESTER
+	/*public static void main(String[] args) {
+		
+	}*/
 }

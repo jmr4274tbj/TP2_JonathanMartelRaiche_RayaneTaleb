@@ -6,11 +6,14 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import gestion.Artiste;
 import gestion.ControleConnexion;
 import gestion.GestionArtistes;
 import gestion.ListenerFenetreArtistes;
 import gestion.ModeleArtiste;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -110,16 +113,12 @@ public class FenetreArtistes extends JDialog {
 		lblImageAlbum.setIcon(image);
 		// FIN TEST
 		
-		modeleArtiste = new ModeleArtiste(gestionArtiste.getListeArtistes()) ;
+		ControleConnexion.connecter();
+		modeleArtiste = new ModeleArtiste(gestionArtiste.getListeArtistes());
 		jtableArtistes = new JTable(modeleArtiste);
 		jtableArtistes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scroListeArtistes = new JScrollPane(jtableArtistes);
-		
-		/*modeleEmploye = new ModeleEmploye(initialiserEmployes()) ;
-		tableEmployes= new JTable(modeleEmploye );
-		tableEmployes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);// sélection simple
-		ascensseur=new JScrollPane(tableEmployes);	
-		add(ascensseur);*/
+
 		
 		JPanel pan = new JPanel(new GridBagLayout());    
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -244,14 +243,5 @@ public class FenetreArtistes extends JDialog {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			
 	}
-	
-	/*private ArrayList<Artiste> initialiserArtistes(){
-		ArrayList<Artiste> listeArtistes= new ArrayList<Artiste>();
-		
-			listeEmployes.add(new  Employe("100", "Menard", 65963, "Technicien", true));
-			listeEmployes.add(new  Employe("101", "Belanger", 90000, "Directeur", false));
-			listeEmployes.add(new  Employe("102", "Azaro", 35000, "receptioniste", true ));
-		return listeEmployes;
-	}*/
 	
 }

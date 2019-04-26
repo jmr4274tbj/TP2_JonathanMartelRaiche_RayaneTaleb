@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import javax.imageio.ImageIO;
-import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import interface_graphique.FenetreArtistes;
 
 
 public class ListenerFenetreArtistes implements ActionListener {
@@ -117,10 +114,8 @@ public class ListenerFenetreArtistes implements ActionListener {
 				} catch (NumberFormatException nfe){
 					JOptionPane.showMessageDialog(btnAjouter, "Le numero n'est pas un nombre");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				

@@ -44,12 +44,14 @@ public class FenetreIdentification extends JFrame {
 
 		txtNomDutilisateur = new JTextField(10);
 		txtNomDutilisateur.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		//txtNomDutilisateur.setText("bobleprogrammeur");
+		txtNomDutilisateur.setText("bobleprogrammeur");
+		//txtNomDutilisateur.setColumns(10);
 
 		txtMotDePasse = new JPasswordField(10);
 		txtMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		//txtMotDePasse.setText("bob1234");
+		txtMotDePasse.setText("bob1234");
 		txtMotDePasse.setEchoChar('*');
+		//txtMotDePasse.setColumns(10);
 
 		btnValider = new JButton("Valider");
 		btnQuitter = new JButton("Quitter");
