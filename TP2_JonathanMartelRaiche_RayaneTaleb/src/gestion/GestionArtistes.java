@@ -36,7 +36,7 @@ public class GestionArtistes {
 				int artisteId = jeuResultat.getInt("artisteId");      
 				String nom = jeuResultat.getString("nom");   
 				int membre = jeuResultat.getInt("membre");      
-				Blob photo = jeuResultat.getBlob("photo");
+				byte[] photo = jeuResultat.getBytes("photo");
      
 				liste.add(new Artiste(artisteId, nom, membre, photo));     
 			} 		

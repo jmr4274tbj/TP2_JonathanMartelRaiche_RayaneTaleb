@@ -6,10 +6,10 @@ public class Artiste {
 	private int artisteId;
 	private String nom;
 	private int membre;
-	private Blob photo;
+	private byte[] photo;
 	
 	//Constructeur
-	public Artiste(int artisteId, String nom, int membre, Blob photo){
+	public Artiste(int artisteId, String nom, int membre, byte[] photo){
 		this.artisteId = artisteId;
 		this.nom = nom;
 		this.membre = membre;
@@ -28,7 +28,7 @@ public class Artiste {
 		return membre;
 	}
 	
-	public Blob getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 

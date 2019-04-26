@@ -1,5 +1,6 @@
 package gestion;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,7 +85,7 @@ public class ListenerFenetreArtistes implements ActionListener {
 					
 					String nom = txtNom.getText();
 
-					Icon icon = lblImageArtiste.getIcon();			
+					/*Icon icon = lblImageArtiste.getIcon();			
 					BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
 					Graphics g = bi.createGraphics();
 					// paint the Icon to the BufferedImage.				
@@ -95,7 +96,18 @@ public class ListenerFenetreArtistes implements ActionListener {
 					ImageIO.write(bi, "png", baos );
 					byte[] imageInByte = baos.toByteArray();
 					Blob photo = connection.createBlob();	
-					photo.setBytes(1, imageInByte);			
+					photo.setBytes(1, imageInByte);	*/	
+					
+					Icon icon = lblImageArtiste.getIcon();			
+					BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+					Graphics g = bi.createGraphics();
+					// paint the Icon to the BufferedImage.				
+					icon.paintIcon(null, g, 0,0);
+					g.dispose();
+					//bi.getGraphics().drawImage(image, 0, 0 , null);
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					ImageIO.write(bi, "png", baos );
+					byte[] photo = baos.toByteArray();
 					
 					int membre;
 					if(chckbxMembre.isSelected()) {
@@ -115,8 +127,6 @@ public class ListenerFenetreArtistes implements ActionListener {
 					JOptionPane.showMessageDialog(btnAjouter, "Le numero n'est pas un nombre");
 				} catch (IOException e) {
 					e.printStackTrace();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
 				
 			} else if (evenement.getSource() == btnQuitter) {
@@ -126,6 +136,10 @@ public class ListenerFenetreArtistes implements ActionListener {
 				if(reponse == 0) {
 					System.exit(0);
 				}
+			} else if (evenement.getSource() == jtableArtistes ) {
+				/*txtNumro.setText();
+				txtNom.setText("");
+				chckbxMembre.setSelected(false);*/
 			}
 			
 
