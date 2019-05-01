@@ -11,6 +11,8 @@ import gestion.GestionArtistes;
 import gestion.ControleurFenetreArtistes;
 import gestion.ControleurJTableArtistes;
 import gestion.ModeleArtiste;
+import gestion.RendererCentre;
+import gestion.RendererGrasCentre;
 import java.awt.Insets;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -131,6 +133,8 @@ public class FenetreArtistes extends JDialog {
 		modeleArtiste = new ModeleArtiste(gestionArtistes.getListeArtistes());
 		jtableArtistes = new JTable(modeleArtiste);
 		jtableArtistes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jtableArtistes.getColumnModel().getColumn(0).setCellRenderer(new RendererGrasCentre());
+		jtableArtistes.getColumnModel().getColumn(1).setCellRenderer(new RendererCentre());
 		scroListeArtistes = new JScrollPane(jtableArtistes);
 		
 		ControleurJTableArtistes gestionTable = new ControleurJTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
