@@ -8,10 +8,10 @@ public class Album {
 	private String titre;
 	private String genre;
 	private String annee;
-	private Blob couverture;
+	private byte[] couverture;
 	
 	//Constructeur
-	public Album(int albumId, int artisteId, String titre, String genre, String annee, Blob couverture ){
+	public Album(int albumId, int artisteId, String titre, String genre, String annee, byte[] couverture ){
 		this.artisteId = artisteId;
 		this.albumId = albumId;
 		this.titre = titre;
@@ -40,7 +40,7 @@ public class Album {
 		return annee;
 	}
 	
-	public Blob getCouverture() {
+	public byte[] getCouverture() {
 		return couverture;
 	}
 

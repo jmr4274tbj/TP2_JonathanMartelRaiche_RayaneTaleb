@@ -7,14 +7,14 @@ import javax.swing.JOptionPane;
 import interface_graphique.FenetreArtistes;
 
 
-public class ListenerFenetreChoixTraitements implements ActionListener {
+public class ControleurFenetreChoixTraitements implements ActionListener {
 
 		private JButton btnArtistes;
 		private JButton btnAlbums;
 		private JButton btnQuitter;
 		private FenetreArtistes fa;
 		
-		public ListenerFenetreChoixTraitements(FenetreArtistes fa, JButton btnArtistes, JButton btnAlbums, JButton btnQuitter) {
+		public ControleurFenetreChoixTraitements(FenetreArtistes fa, JButton btnArtistes, JButton btnAlbums, JButton btnQuitter) {
 			this.fa = fa;
 			this.btnArtistes = btnArtistes;
 			this.btnAlbums = btnAlbums;

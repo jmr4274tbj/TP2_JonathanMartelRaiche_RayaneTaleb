@@ -20,7 +20,7 @@ public class GestionAlbums {
 		return listeAlbums; 
 	}  
 	
-	private ArrayList <Album> obtenirListeAlbums() {  
+	private ArrayList<Album> obtenirListeAlbums() {  
 		ArrayList<Album> liste = new ArrayList <Album>();  
 		String requete = "SELECT * FROM Albums ORDER BY albumId";  
 		
@@ -32,7 +32,7 @@ public class GestionAlbums {
 				String titre = jeuResultat.getString("titre");   
 				String genre = jeuResultat.getString("genre");      
 				String annee = jeuResultat.getString("annee");
-				Blob couverture = jeuResultat.getBlob("couverture");
+				byte[] couverture = jeuResultat.getBytes("couverture");
      
 				liste.add(new Album(albumId, artisteId, titre, genre, annee, couverture));     
 			} 	

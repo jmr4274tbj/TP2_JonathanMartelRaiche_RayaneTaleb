@@ -9,7 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
-import gestion.ListenerFenetreIndentification;
+import gestion.ControleurFenetreIndentification;
 import javax.swing.JButton;
 import java.awt.Font;
 
@@ -92,13 +92,14 @@ public class FenetreIdentification extends JFrame {
 		add(btnValider);	
 		add(btnQuitter);	
 		
-		ListenerFenetreIndentification gestion = new ListenerFenetreIndentification(fct, btnValider, txtNomDutilisateur, txtMotDePasse, btnQuitter);
+		ControleurFenetreIndentification gestion = new ControleurFenetreIndentification(fct, btnValider, txtNomDutilisateur, txtMotDePasse, btnQuitter);
 		btnValider.addActionListener(gestion);
 		txtNomDutilisateur.addActionListener(gestion);
 		txtMotDePasse.addActionListener(gestion);
 		btnQuitter.addActionListener(gestion);
 		
 		setResizable(true);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}

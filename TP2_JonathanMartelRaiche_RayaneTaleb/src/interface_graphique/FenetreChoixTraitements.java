@@ -2,7 +2,7 @@ package interface_graphique;
 
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
-import gestion.ListenerFenetreChoixTraitements;
+import gestion.ControleurFenetreChoixTraitements;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
@@ -36,7 +36,7 @@ public class FenetreChoixTraitements extends JDialog {
 			
 		add(pan);
 		
-		ListenerFenetreChoixTraitements gestion = new ListenerFenetreChoixTraitements(fa, btnArtistes, btnAlbums, btnQuitter);
+		ControleurFenetreChoixTraitements gestion = new ControleurFenetreChoixTraitements(fa, btnArtistes, btnAlbums, btnQuitter);
 		btnArtistes.addActionListener(gestion);
 		btnAlbums.addActionListener(gestion);
 		btnQuitter.addActionListener(gestion);

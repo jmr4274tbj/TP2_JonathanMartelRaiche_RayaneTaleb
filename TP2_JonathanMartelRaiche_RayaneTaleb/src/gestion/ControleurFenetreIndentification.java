@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import interface_graphique.FenetreChoixTraitements;
 
 
-public class ListenerFenetreIndentification implements ActionListener {
+public class ControleurFenetreIndentification implements ActionListener {
 
 		private JButton btnValider;
 		private JTextField txtNomDutilisateur;
@@ -18,7 +18,7 @@ public class ListenerFenetreIndentification implements ActionListener {
 		private JButton btnQuitter;
 		private FenetreChoixTraitements fct;
 		
-		public ListenerFenetreIndentification(FenetreChoixTraitements fct, JButton btnValider, JTextField txtNomDutilisateur, JPasswordField txtMotDePasse, JButton btnQuitter) {
+		public ControleurFenetreIndentification(FenetreChoixTraitements fct, JButton btnValider, JTextField txtNomDutilisateur, JPasswordField txtMotDePasse, JButton btnQuitter) {
 			this.fct = fct;
 			this.btnValider = btnValider;
 			this.txtNomDutilisateur = txtNomDutilisateur;

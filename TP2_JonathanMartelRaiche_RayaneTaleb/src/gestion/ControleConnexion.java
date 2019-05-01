@@ -17,8 +17,7 @@ public class ControleConnexion {
 	*/	
 	public static void connecter() {  
 		try{   
-			if(laConnexion == null || laConnexion.isClosed()) {      
-				//Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");  
+			if(laConnexion == null || laConnexion.isClosed()) {       
 				Class.forName("org.sqlite.JDBC");
 				laConnexion = DriverManager.getConnection(url);    
 				JOptionPane.showMessageDialog(null, "Connect\u00E9 à la BD", "ALERTE", JOptionPane.INFORMATION_MESSAGE);    

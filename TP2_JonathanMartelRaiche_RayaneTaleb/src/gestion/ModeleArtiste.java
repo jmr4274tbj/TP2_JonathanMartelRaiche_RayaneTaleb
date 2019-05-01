@@ -22,8 +22,7 @@ public class ModeleArtiste extends AbstractTableModel {
 	 * @param lesDonnes Structure de données de type ArrayList
 	 */
 	public ModeleArtiste(ArrayList<Artiste> lesDonnees) {
-		this.lesDonnees = lesDonnees;
-		
+		this.lesDonnees = lesDonnees;		
 	}
 	
 	/**
@@ -52,7 +51,7 @@ public class ModeleArtiste extends AbstractTableModel {
 
 	/**
 	 * Renvoie la valeur de la cellule à rowIndex et colomnIndex
-	 * @return vakleur de l'objet à la position spécifiée
+	 * @return valeur de l'objet à la position spécifiée
 	 * @param rowIndex : indice de la ligne
 	 * @param columnIndex : indice de la colonne
 	 * 
@@ -67,11 +66,9 @@ public class ModeleArtiste extends AbstractTableModel {
 		case 1 :
 			return lesDonnees.get(rowIndex).getNom();
 		case 2 :
-			return lesDonnees.get(rowIndex).getMembre();
-
+			return lesDonnees.get(rowIndex).isMembre();
 		default :	
-			return null;
-			
+			return null;			
 		}
 		
 	}
@@ -99,13 +96,27 @@ public class ModeleArtiste extends AbstractTableModel {
 		switch (columnIndex) {
 		   case 0: return String.class;
 		   case 1: return String.class;
-		   case 2: return String.class;
+		   case 2: return Boolean.class;
 		   default: throw new IllegalArgumentException(" index de colonne invalide: "+columnIndex);
 	    }
 	}
-
+	
 	public void ajouterArtiste(Artiste artiste) {
-		lesDonnees.add(artiste);	
+		lesDonnees.add(artiste);
+		fireTableRowsInserted(lesDonnees.size() -1, lesDonnees.size() -1);
+	}
+
+	// ==========================================================================
+	// permet de mettre à jour le modèle avec une nouvelle ArrayListe
+	// et d'informer les vues affichant ce modèle
+	public void setDonnees(ArrayList<Artiste> nouvellesDonnees){
+		lesDonnees = nouvellesDonnees;
+		fireTableDataChanged();
+	}
+	// ==========================================================================
+    //méthode utilisée pour accéder à un artiste à partir de son rang dans la table
+	public Artiste getElement(int row){
+		return lesDonnees.get(row);
 	}
 	
 }

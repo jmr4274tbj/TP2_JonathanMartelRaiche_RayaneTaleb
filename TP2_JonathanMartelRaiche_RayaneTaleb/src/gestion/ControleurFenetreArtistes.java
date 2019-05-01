@@ -1,15 +1,11 @@
 package gestion;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -21,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
-public class ListenerFenetreArtistes implements ActionListener {
+public class ControleurFenetreArtistes implements ActionListener {
 
 		private JTextField txtRecherche;
 		private JButton btnRecherche;
@@ -36,11 +32,10 @@ public class ListenerFenetreArtistes implements ActionListener {
 		private JButton btnSupprimer;
 		private JLabel lblImageArtiste;
 		private JLabel lblImageAlbum;
-		private static JTable jtableArtistes;
+		private JTable jtableArtistes;
 		private ModeleArtiste modeleArtiste;
-		private Connection connection = ControleConnexion.getLaConnexion(); 
 		
-		public ListenerFenetreArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
+		public ControleurFenetreArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
 				JButton btnRemplacer, JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom, 
 				JButton btnNouveau, JButton btnAjouter, JButton btnModifier, JButton btnSupprimer, 
 				JLabel lblImageArtiste, JLabel lblImageAlbum, JTable jtableArtistes, ModeleArtiste modeleArtiste) {
@@ -57,6 +52,7 @@ public class ListenerFenetreArtistes implements ActionListener {
 			this.btnSupprimer = btnSupprimer;
 			this.lblImageArtiste = lblImageArtiste;
 			this.lblImageAlbum = lblImageAlbum;
+			this.jtableArtistes = jtableArtistes;
 			this.modeleArtiste = modeleArtiste;;
 		}
 		
@@ -65,91 +61,70 @@ public class ListenerFenetreArtistes implements ActionListener {
 			
 			if (evenement.getSource() == btnRecherche) {		
 				
+				
 			} else if (evenement.getSource() == btnNouveau) {
-				txtNumro.setText(""); //AUTO INCREMENT
+				txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1)); //AUTO INCREMENT
 				txtNom.setText("");
+				txtNom.setEditable(true);
 				chckbxMembre.setSelected(false);
-				ImageIcon image = new ImageIcon(ListenerFenetreArtistes.class.getResource("image_artiste_default.png"));
+				chckbxMembre.setFocusable(true);
+				ImageIcon image = new ImageIcon(ControleurFenetreArtistes.class.getResource("image_artiste_default.png"));
 				lblImageArtiste.setIcon(image);
 				
 			} else if (evenement.getSource() == btnAjouter ){
 				
 				try{
-					int numero = 0;
 					
-					try {
-						numero = Integer.parseInt(txtNumro.getText());
-					} catch (NumberFormatException nfe){
-						JOptionPane.showMessageDialog(btnAjouter, "Le numero n'est pas un nombre");
-					}
-					
+					int numero = Integer.parseInt(txtNumro.getText());
 					String nom = txtNom.getText();
-
-					/*Icon icon = lblImageArtiste.getIcon();			
-					BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
-					Graphics g = bi.createGraphics();
-					// paint the Icon to the BufferedImage.				
-					icon.paintIcon(null, g, 0,0);
-					g.dispose();
-					//bi.getGraphics().drawImage(image, 0, 0 , null);
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					ImageIO.write(bi, "png", baos );
-					byte[] imageInByte = baos.toByteArray();
-					Blob photo = connection.createBlob();	
-					photo.setBytes(1, imageInByte);	*/	
+					boolean membre = chckbxMembre.isSelected();
 					
 					Icon icon = lblImageArtiste.getIcon();			
 					BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
-					Graphics g = bi.createGraphics();
-					// paint the Icon to the BufferedImage.				
+					Graphics g = bi.createGraphics();			
 					icon.paintIcon(null, g, 0,0);
 					g.dispose();
-					//bi.getGraphics().drawImage(image, 0, 0 , null);
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					ImageIO.write(bi, "png", baos );
 					byte[] photo = baos.toByteArray();
 					
-					int membre;
-					if(chckbxMembre.isSelected()) {
-						membre = 1;
-					} else {
-						membre = 0;
-					}
+					Artiste artiste = new Artiste(numero, nom, membre, photo);	
 
-					Artiste artiste = new Artiste(numero, nom, membre, photo );
-					//Ajouter l'employé à la BD puis au modèle
 					GestionArtistes gestionnaire = new GestionArtistes();
+					
 					if (gestionnaire.ajouterArtisteBD(artiste)){
 						modeleArtiste.ajouterArtiste(artiste);
 						viderChamps();
-					}
-				} catch (NumberFormatException nfe){
-					JOptionPane.showMessageDialog(btnAjouter, "Le numero n'est pas un nombre");
+					}		
+					
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "Le numéro n'est pas un nombre");
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				}		
 				
 			} else if (evenement.getSource() == btnQuitter) {
+				
 				int reponse = JOptionPane.showConfirmDialog(null,
 						"Êtes-vous sûr de vouloir quitter l'application?",
 						"Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if(reponse == 0) {
 					System.exit(0);
 				}
-			} else if (evenement.getSource() == jtableArtistes ) {
-				/*txtNumro.setText();
-				txtNom.setText("");
-				chckbxMembre.setSelected(false);*/
-			}
+				
+			} else if (evenement.getSource() == btnModifier ) {			
+
+			} else if (evenement.getSource() == btnSupprimer ) {
+				
+			} 
+	}
 			
 
-	}
-
 		private void viderChamps() {
-			txtNumro.setText(""); //AUTO INCREMENT
+			txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1)); //AUTO INCREMENT
 			txtNom.setText("");
 			chckbxMembre.setSelected(false);
-			ImageIcon image = new ImageIcon(ListenerFenetreArtistes.class.getResource("image_artiste_default.png"));
+			ImageIcon image = new ImageIcon(ControleurFenetreArtistes.class.getResource("image_artiste_default.png"));
 			lblImageArtiste.setIcon(image);
 			
 		}
