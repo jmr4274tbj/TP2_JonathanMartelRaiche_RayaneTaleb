@@ -105,6 +105,17 @@ public class ModeleArtiste extends AbstractTableModel {
 		lesDonnees.add(artiste);
 		fireTableRowsInserted(lesDonnees.size() -1, lesDonnees.size() -1);
 	}
+	
+	public void supprimerArtiste(int rowIndex) {
+		lesDonnees.remove(rowIndex);
+		// notification de la suppression de la ligne rowIndex à la ligne rowIndex
+		fireTableRowsDeleted(rowIndex, rowIndex);
+	}	
+	
+	public void modifierArtiste(int firstRow, Artiste artiste) {
+		lesDonnees.set(firstRow, artiste);
+		fireTableRowsUpdated(firstRow, firstRow);
+	}
 
 	// ==========================================================================
 	// permet de mettre à jour le modèle avec une nouvelle ArrayListe

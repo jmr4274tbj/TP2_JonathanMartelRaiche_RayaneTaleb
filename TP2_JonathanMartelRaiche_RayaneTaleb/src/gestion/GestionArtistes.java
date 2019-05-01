@@ -76,13 +76,45 @@ public class GestionArtistes {
 	} 
 	
 	public boolean modifierArtisteBD(Artiste artiste) {
-		boolean boolModif = false;  		
+		boolean boolModif = false;  
+		
+		String requete = "UPDATE Artistes SET nom = ?, membre = ?, photo = ? WHERE artisteId = ?"; 
+    	
+	    try(PreparedStatement statement = connection.prepareStatement(requete);){	
+	        //Fixer les paramètres 
+	    	statement.setString(2, artiste.getNom());
+	    	statement.setBoolean(3, artiste.isMembre());
+	    	statement.setBytes(4, artiste.getPhoto());
+	    	statement.setInt(1, artiste.getArtisteId());
+	    	statement.executeUpdate();
+	    	boolModif = true;
+	    		
+	    } catch (SQLException sqle) {   
+			JOptionPane.showMessageDialog(null, 
+			"Problème rencontr\u00E8 lors de l'ajout de l'artiste : " 
+			+ sqle.getMessage(), "Résultat", JOptionPane.ERROR_MESSAGE);  
+			sqle.printStackTrace();
+		}			
 		
 		return boolModif; 	   
 	} 
 	
 	public boolean supprimerArtisteBD(Artiste artiste) {
-		boolean boolSupp = false;  		            
+		boolean boolSupp = false;  		
+            	
+		String requete = "DELETE FROM Artistes WHERE artisteId = " + artiste.getArtisteId();       
+
+		try {   
+			Statement statement = connection.createStatement();   
+			statement.executeUpdate(requete);   
+			boolSupp = true; //Suppression réussi   
+			
+		} catch (SQLException sqle){          
+			JOptionPane.showMessageDialog(null,      
+			"Probl\u00E8me rencontr\u00E9 lors de la suppression de l'artiste : "                
+			+ sqle.getMessage(), "Résultat", JOptionPane.ERROR_MESSAGE);  
+			sqle.printStackTrace();
+		}
 		
 		return boolSupp;	   
 	} 

@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import interface_graphique.FenetreArtistes;
 
 
 public class ControleurFenetreArtistes implements ActionListener {
@@ -68,7 +69,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 				txtNom.setEditable(true);
 				chckbxMembre.setSelected(false);
 				chckbxMembre.setFocusable(true);
-				ImageIcon image = new ImageIcon(ControleurFenetreArtistes.class.getResource("image_artiste_default.png"));
+				ImageIcon image = new ImageIcon(FenetreArtistes.class.getResource("images_artistes/image_artiste_default.png"));
 				lblImageArtiste.setIcon(image);
 				
 			} else if (evenement.getSource() == btnAjouter ){
@@ -112,10 +113,82 @@ public class ControleurFenetreArtistes implements ActionListener {
 					System.exit(0);
 				}
 				
-			} else if (evenement.getSource() == btnModifier ) {			
+			} else if (evenement.getSource() == btnModifier ) {
+				int numLigne = -1;
+				numLigne = jtableArtistes.getSelectedRow();
+				
+				if(numLigne != -1){
+					
+					try {
+						
+						int numero = Integer.parseInt(txtNumro.getText());
+						String nom = txtNom.getText();
+						boolean membre = chckbxMembre.isSelected();
+						
+						Icon icon = lblImageArtiste.getIcon();			
+						BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+						Graphics g = bi.createGraphics();			
+						icon.paintIcon(null, g, 0,0);
+						g.dispose();
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						ImageIO.write(bi, "png", baos );
+						byte[] photo = baos.toByteArray();
+						
+						Artiste artiste = new Artiste(numero, nom, membre, photo);	
+	
+						GestionArtistes gestionnaire = new GestionArtistes();
+						
+						if (gestionnaire.modifierArtisteBD(artiste)){
+							modeleArtiste.modifierArtiste(numLigne, artiste);
+							//viderChamps();
+						}	
+						
+						if (modeleArtiste.getRowCount() == 0) {
+			            	btnModifier.setEnabled(false);
+			            } else {
+			            	btnModifier.setEnabled(true);
+			            }
+						
+					} catch (NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(null, "Le numéro n'est pas un nombre");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}	
+				}
+				
+				// si aucune ligne sélectionnée
+			    if(numLigne == -1) {
+			       JOptionPane.showMessageDialog(null, "Sélectionnez une ligne avant.",
+			            "Suppression", JOptionPane.INFORMATION_MESSAGE);
+			    }
 
 			} else if (evenement.getSource() == btnSupprimer ) {
+				int numLigne1 = -1;
+				numLigne1 = jtableArtistes.getSelectedRow();
 				
+				if(numLigne1 != -1){						
+        		          	
+					GestionArtistes gestionnaire = new GestionArtistes();
+					
+					//getValueAt(int rowIndex, int columnIndex);
+					Artiste artiste1 = modeleArtiste.getElement(numLigne1);
+					
+					if (gestionnaire.supprimerArtisteBD(artiste1)){
+						modeleArtiste.supprimerArtiste(numLigne1);
+					}
+					
+		            if (modeleArtiste.getRowCount() == 0) {
+		            	btnSupprimer.setEnabled(false);
+		            } else {
+		            	btnSupprimer.setEnabled(true);
+		            }
+				}		
+				
+				// si aucune ligne sélectionnée
+		        if(numLigne1 == -1) {
+		            JOptionPane.showMessageDialog(null, "Sélectionnez une ligne avant.",
+		            		"Suppression", JOptionPane.INFORMATION_MESSAGE);
+		        }
 			} 
 	}
 			
@@ -124,7 +197,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 			txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1)); //AUTO INCREMENT
 			txtNom.setText("");
 			chckbxMembre.setSelected(false);
-			ImageIcon image = new ImageIcon(ControleurFenetreArtistes.class.getResource("image_artiste_default.png"));
+			ImageIcon image = new ImageIcon(FenetreArtistes.class.getResource("image_artiste_default.png"));
 			lblImageArtiste.setIcon(image);
 			
 		}
