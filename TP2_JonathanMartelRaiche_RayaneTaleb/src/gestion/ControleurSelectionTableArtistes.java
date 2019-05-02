@@ -85,7 +85,25 @@ public class ControleurSelectionTableArtistes implements ListSelectionListener {
 	        	chckbxMembre.setSelected(true);  
 	        } else { 
 	        	chckbxMembre.setSelected(false);  
-	        }   	        
+	        } 
+	        
+	        //Affichage album(s) de artiste
+	        
+	        modeleListeAlbums.clear();
+	        
+	        GestionAlbums gestion = new GestionAlbums();
+	          
+	        ArrayList<Album> listeAlbums = gestion.getListeAlbums();	      
+
+	        for(int index = 0; index < listeAlbums.size(); index++) {
+	        	  
+	            Album album = listeAlbums.get(index);
+	        	  
+	        	if(album.getArtisteId() == artiste.getArtisteId()) {
+	        		  
+	        		modeleListeAlbums.addElement(album.getAnnee() + " - " + album.getTitre());
+	        	}
+	        }
 	             
 	        
 		}

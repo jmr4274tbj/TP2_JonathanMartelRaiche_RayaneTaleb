@@ -72,6 +72,25 @@ public class ControleurSelectionListeArtistes implements ListSelectionListener {
 		@Override
 		public void valueChanged(ListSelectionEvent e) {			        
 	        
+			/*int numLigne = jtableArtistes.getSelectedRow();
+	        Artiste artiste = modeleArtiste.getElement(numLigne);    	        
+	        
+	        //Affichage de la couverture de l'album sélectionné
+	        
+	        GestionAlbums gestion = new GestionAlbums();
+	          
+	        ArrayList<Album> listeAlbums = gestion.getListeAlbums();	      
+
+	        for(int index = 0; index < listeAlbums.size(); index++) {
+	        	  
+	            Album album = listeAlbums.get(index);
+	        	  
+	        	if(album.getArtisteId() == artiste.getArtisteId()) {
+	        		lblImageAlbum.setIcon(new ImageIcon(new ImageIcon(album.getCouverture())
+	    	        		.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+	        	}
+	        		  
+	        }*/
 		}
 
 }
