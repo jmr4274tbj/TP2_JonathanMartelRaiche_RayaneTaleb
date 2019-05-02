@@ -13,7 +13,7 @@ public class GestionArtistes {
 
 	private Connection connection = ControleConnexion.getLaConnexion();  
 	/**  
-	 * Structure de données pour chercher la liste des employés de la BD 
+	 * Structure de données pour chercher la liste des artistes de la BD 
 	*/ 	
 	private ArrayList<Artiste> listeArtistes; 
 	 

@@ -1,34 +1,27 @@
 package interface_graphique;
 
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-
 import gestion.ControleConnexion;
-import gestion.GestionAlbums;
 import gestion.GestionArtistes;
 import gestion.ControleurFenetreArtistes;
+import gestion.ControleurMenuAide;
+import gestion.ControleurSelectionListeArtistes;
 import gestion.ControleurSelectionTableArtistes;
 import gestion.ControleurDoubleClickTableArtistes;
 import gestion.ModeleArtiste;
 import gestion.RendererCentre;
 import gestion.RendererGrasCentre;
-import java.awt.Insets;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 
@@ -41,7 +34,6 @@ public class FenetreArtistes extends JDialog {
 	private JButton btnQuitter;
 	private JLabel lblArtistes;
 	private JLabel lblImageArtiste;
-	private ImageIcon image;
 	private JButton btnRemplacer;
 	private JLabel lblInformations;
 	private JLabel lblNumro;
@@ -55,115 +47,116 @@ public class FenetreArtistes extends JDialog {
 	private JButton btnModifier;
 	private JButton btnSupprimer;
 	private JLabel lblImageAlbum;
-	private JTable jtableArtistes;
-	
+	private JTable jtableArtistes;	
 	private DefaultListModel<String> modeleListeAlbums;
-	private JList<String> jlistAlbums;
-	
+	private JList<String> jlistAlbums;	
 	private JScrollPane scroListeArtistes;
 	private JScrollPane scroListeAlbums;
 	private ModeleArtiste modeleArtiste;
-	//private ModeleAlbum modeleAlbum;
 	private GestionArtistes gestionArtistes = new GestionArtistes();
-	private GestionAlbums gestionAlbums = new GestionAlbums();
+	private JButton btnAide;
 
 	public FenetreArtistes(FenetreChoixTraitements parent) {
 		super( parent, true );
 		setTitle("Gestion des artistes");
-		setBounds(100, 100, 789, 576);
+		setBounds(100, 100, 789, 597);
 		getContentPane().setLayout(null);
 		
 		ControleConnexion.connecter();
 		
 		lblRechercherUnArtiste = new JLabel("Rechercher un artiste");
-		lblRechercherUnArtiste.setBounds(20, 11, 168, 14);
+		lblRechercherUnArtiste.setBounds(22, 45, 168, 14);
 		getContentPane().add(lblRechercherUnArtiste);
 		
 		txtRecherche = new JTextField();
 		txtRecherche.setColumns(10);
-		txtRecherche.setBounds(20, 36, 391, 30);
+		txtRecherche.setBounds(22, 70, 391, 30);
 		getContentPane().add(txtRecherche);
 		txtRecherche.setColumns(10);
 
 		btnRecherche = new JButton("Recherche");
-		btnRecherche.setBounds(421, 36, 117, 30);
+		btnRecherche.setBounds(423, 70, 117, 30);
 		getContentPane().add(btnRecherche);
 		
 		btnQuitter = new JButton("Quitter");
-		btnQuitter.setBounds(638, 36, 117, 30);
+		btnQuitter.setBounds(640, 70, 117, 30);
 		getContentPane().add(btnQuitter);
 		
 		lblArtistes = new JLabel("Artistes");
-		lblArtistes.setBounds(20, 89, 150, 21);
+		lblArtistes.setBounds(22, 123, 150, 21);
 		lblArtistes.setFont(new Font("Monospace", Font.BOLD, 15));
 		getContentPane().add(lblArtistes);
 
 		lblImageArtiste = new JLabel();
 		lblImageArtiste.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImageArtiste.setBounds(20, 121, 150, 150);
+		lblImageArtiste.setBounds(22, 155, 150, 150);
 		getContentPane().add(lblImageArtiste);
 		
 		lblImageAlbum = new JLabel();
 		lblImageAlbum.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImageAlbum.setBounds(550, 352, 150, 150);
+		lblImageAlbum.setBounds(552, 386, 150, 150);
 		getContentPane().add(lblImageAlbum);
 
 		btnRemplacer = new JButton("Remplacer");
-		btnRemplacer.setBounds(35, 295, 117, 30);
+		btnRemplacer.setBounds(37, 329, 117, 30);
 		getContentPane().add(btnRemplacer);
 
 		lblInformations = new JLabel("Informations");
 		lblInformations.setFont(new Font("Monospace", Font.BOLD, 15));
-		lblInformations.setBounds(20, 349, 186, 21);
+		lblInformations.setBounds(22, 383, 186, 21);
 		getContentPane().add(lblInformations);
 
 		lblNumro = new JLabel("Num\u00E9ro");
 		lblNumro.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNumro.setBounds(20, 390, 79, 21);
+		lblNumro.setBounds(22, 424, 79, 21);
 		getContentPane().add(lblNumro);
 
 		lblNom = new JLabel("Nom");
 		lblNom.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNom.setBounds(20, 419, 79, 21);
+		lblNom.setBounds(22, 453, 79, 21);
 		getContentPane().add(lblNom);
 
 		chckbxMembre = new JCheckBox();
 		chckbxMembre.setEnabled(false);
-		chckbxMembre.setBounds(69, 446, 21, 23);
+		chckbxMembre.setBounds(71, 480, 21, 23);
 		getContentPane().add(chckbxMembre);
 			
 		lblMembre = new JLabel("Membre");
 		lblMembre.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMembre.setBounds(20, 448, 79, 21);
+		lblMembre.setBounds(22, 482, 79, 21);
 		getContentPane().add(lblMembre);
 
 		txtNumro = new JTextField();
-		txtNumro.setBounds(72, 391, 198, 20);
+		txtNumro.setBounds(74, 425, 198, 20);
 		txtNumro.setColumns(10);
 		txtNumro.setEditable(false);
 		getContentPane().add(txtNumro);
 
 		txtNom = new JTextField();
-		txtNom.setBounds(72, 419, 198, 20);
+		txtNom.setBounds(74, 453, 198, 20);
 		txtNom.setColumns(10);
 		txtNom.setEditable(false);
 		getContentPane().add(txtNom);
 
 		btnNouveau = new JButton("Nouveau");
-		btnNouveau.setBounds(638, 121, 117, 30);
+		btnNouveau.setBounds(640, 155, 117, 30);
 		getContentPane().add(btnNouveau);
 
 		btnAjouter = new JButton("Ajouter");
-		btnAjouter.setBounds(638, 177, 117, 30);
+		btnAjouter.setBounds(640, 211, 117, 30);
 		getContentPane().add(btnAjouter);
 
 		btnModifier = new JButton("Modifier");
-		btnModifier.setBounds(638, 237, 117, 30);
+		btnModifier.setBounds(640, 271, 117, 30);
 		getContentPane().add(btnModifier);
 
 		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setBounds(638, 295, 117, 30);
+		btnSupprimer.setBounds(640, 329, 117, 30);
 		getContentPane().add(btnSupprimer);
+		
+		btnAide = new JButton("Aide");
+		btnAide.setBounds(0, 0, 89, 23);
+		getContentPane().add(btnAide);
 		
 		modeleArtiste = new ModeleArtiste(gestionArtistes.getListeArtistes());
 		jtableArtistes = new JTable(modeleArtiste);
@@ -174,7 +167,7 @@ public class FenetreArtistes extends JDialog {
 		
 		scroListeArtistes.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroListeArtistes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scroListeArtistes.setBounds(194, 121, 420, 204);
+		scroListeArtistes.setBounds(196, 155, 420, 204);
 		getContentPane().add(scroListeArtistes);
 		
 		scroListeArtistes.setViewportView(jtableArtistes);
@@ -186,30 +179,26 @@ public class FenetreArtistes extends JDialog {
 		
 		scroListeAlbums.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroListeAlbums.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scroListeAlbums.setBounds(292, 352, 198, 150);
+		scroListeAlbums.setBounds(294, 386, 198, 150);
 		getContentPane().add(scroListeAlbums);
 		
 		scroListeAlbums.setViewportView(jlistAlbums);
 	
-		ControleurDoubleClickTableArtistes gestionTable = new ControleurDoubleClickTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
-				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
-				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
+		ControleurDoubleClickTableArtistes gestionTable = new ControleurDoubleClickTableArtistes(chckbxMembre, txtNumro, txtNom);
 		
-		ControleurSelectionTableArtistes gestionSelectionTable = new ControleurSelectionTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
-				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
-				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
+		ControleurSelectionTableArtistes gestionSelectionTable = new ControleurSelectionTableArtistes(chckbxMembre, txtNumro, txtNom, lblImageArtiste, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums);
 		
-		ControleurSelectionTableArtistes gestionSelectionListe = new ControleurSelectionTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
-				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
-				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
+		ControleurSelectionListeArtistes gestionSelectionListe = new ControleurSelectionListeArtistes(lblImageAlbum, jtableArtistes, modeleArtiste);
 		
 		ControleurFenetreArtistes gestion = new ControleurFenetreArtistes(txtRecherche, btnRecherche, btnQuitter, 
 				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
-				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste);
+				lblImageArtiste, jtableArtistes, modeleArtiste);
+		
+		ControleurMenuAide gestionAide = new ControleurMenuAide(btnAide);
 		
 		jtableArtistes.addMouseListener(gestionTable);
 		jtableArtistes.getSelectionModel().addListSelectionListener(gestionSelectionTable);
-		jlistAlbums.getSelectionModel().addListSelectionListener(gestionSelectionTable);
+		jlistAlbums.getSelectionModel().addListSelectionListener( gestionSelectionListe);
 		txtRecherche.addActionListener(gestion);
 		btnRecherche.addActionListener(gestion); 
 		btnQuitter.addActionListener(gestion); 
@@ -221,12 +210,11 @@ public class FenetreArtistes extends JDialog {
 		btnAjouter.addActionListener(gestion); 
 		btnModifier.addActionListener(gestion); 
 		btnSupprimer.addActionListener(gestion); 
+		btnAide.addActionListener(gestionAide); 
 		
-		setResizable(true);
+		setResizable(false);
 		setLocationRelativeTo(parent);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			
-	}
-	
-	
+	}	
 }

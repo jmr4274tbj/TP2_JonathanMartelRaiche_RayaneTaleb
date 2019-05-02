@@ -18,7 +18,7 @@ public class ModeleArtiste extends AbstractTableModel {
 	private final String[] lesTitres = {"No", "Nom", "Membre"};
 	
 	/**
-	 * Construit un modeleEmployé à partir d'une liste de données
+	 * Construit un modeleArtiste à partir d'une liste de données
 	 * @param lesDonnes Structure de données de type ArrayList
 	 */
 	public ModeleArtiste(ArrayList<Artiste> lesDonnees) {
@@ -27,7 +27,7 @@ public class ModeleArtiste extends AbstractTableModel {
 	
 	/**
 	 * Donne le nombre de colonnes dans le modèle
-	 *  Un JTable utilise cette méthode pour déterminer le nombre de colonne qu'il doit crééer et afficher poar défau
+	 *  Un JTable utilise cette méthode pour déterminer le nombre de colonne qu'il doit créer et afficher par défaut
 	 *  @return le nombre de colonne du modèle
 	 *  
 	 */

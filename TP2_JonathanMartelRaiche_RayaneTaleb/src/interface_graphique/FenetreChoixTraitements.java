@@ -13,14 +13,12 @@ public class FenetreChoixTraitements extends JDialog {
 	private JButton btnArtistes;
 	private JButton btnAlbums;
 	private JButton btnQuitter;
-	//private FenetreIdentification parent;
 	private FenetreArtistes fa = new FenetreArtistes(this);
 
 	public FenetreChoixTraitements(FenetreIdentification parent) {
 		super( parent, true );
 		setTitle("Choix des traitements");
 		setSize(300, 80);
-		//this.parent = parent;
 		
 		btnArtistes = new JButton("Artistes");
 
@@ -41,7 +39,7 @@ public class FenetreChoixTraitements extends JDialog {
 		btnAlbums.addActionListener(gestion);
 		btnQuitter.addActionListener(gestion);
 		
-		setResizable(true);
+		setResizable(false);
 		setLocationRelativeTo(parent);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		

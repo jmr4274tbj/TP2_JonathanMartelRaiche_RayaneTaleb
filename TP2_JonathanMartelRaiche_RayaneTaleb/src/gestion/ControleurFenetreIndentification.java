@@ -30,7 +30,7 @@ public class ControleurFenetreIndentification implements ActionListener {
 		public void actionPerformed(ActionEvent evenement) {
 			
 			if (evenement.getSource() == btnValider) {
-				if(txtNomDutilisateur.getText().equals("bobleprogrammeur") && String.valueOf(txtMotDePasse.getPassword()).equals("bob1234")) {
+				if(txtNomDutilisateur.getText().equals("bobprogrammeur") && String.valueOf(txtMotDePasse.getPassword()).equals("bob1234")) {
 					fct.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect!",  "Erreur", JOptionPane.ERROR_MESSAGE);

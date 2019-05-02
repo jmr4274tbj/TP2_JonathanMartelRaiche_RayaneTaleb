@@ -1,72 +1,22 @@
 package gestion;
 
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import interface_graphique.FenetreArtistes;
 
 
 public class ControleurDoubleClickTableArtistes implements MouseListener {
 
-		private JTextField txtRecherche;
-		private JButton btnRecherche;
-		private JButton btnQuitter;
-		private JButton btnRemplacer;
 		private JCheckBox chckbxMembre;
 		private JTextField txtNumro;
 		private JTextField txtNom;
-		private JButton btnNouveau;
-		private JButton btnAjouter;
-		private JButton btnModifier;
-		private JButton btnSupprimer;
-		private JLabel lblImageArtiste;
-		private JLabel lblImageAlbum;
-		private JTable jtableArtistes;
-		private ModeleArtiste modeleArtiste;
-		private JList<String> jlistAlbums;
-		private GestionAlbums gestionAlbums;
-		private GestionArtistes gestionArtistes;
-		private DefaultListModel<String> modeleListeAlbums;
 		
 		
-		public ControleurDoubleClickTableArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
-				JButton btnRemplacer, JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom, 
-				JButton btnNouveau, JButton btnAjouter, JButton btnModifier, JButton btnSupprimer, 
-				JLabel lblImageArtiste, JLabel lblImageAlbum, JTable jtableArtistes, ModeleArtiste modeleArtiste, 
-				DefaultListModel<String> modeleListeAlbums, JList<String> jlistAlbums, GestionAlbums gestionAlbums, GestionArtistes gestionArtistes) {
-			this.txtRecherche = txtRecherche;
-			this.btnRecherche = btnRecherche;
-			this.btnQuitter = btnQuitter;
-			this.btnRemplacer = btnRemplacer;
+		public ControleurDoubleClickTableArtistes(JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom) {
 			this.chckbxMembre = chckbxMembre;
 			this.txtNumro = txtNumro;
 			this.txtNom = txtNom;
-			this.btnNouveau = btnNouveau;
-			this.btnAjouter = btnAjouter;
-			this.btnModifier = btnModifier;
-			this.btnSupprimer = btnSupprimer;
-			this.lblImageArtiste = lblImageArtiste;
-			this.lblImageAlbum = lblImageAlbum;
-			this.jtableArtistes = jtableArtistes;
-			this.modeleArtiste = modeleArtiste;
-			this.jlistAlbums = jlistAlbums;
-			this.gestionAlbums = gestionAlbums;
-			this.gestionArtistes = gestionArtistes;
-			this.modeleListeAlbums = modeleListeAlbums;
 		}
 		
 		@Override

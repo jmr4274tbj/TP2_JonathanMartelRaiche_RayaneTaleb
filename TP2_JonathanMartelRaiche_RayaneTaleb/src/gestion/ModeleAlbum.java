@@ -110,8 +110,4 @@ public class ModeleAlbum extends AbstractTableModel {
 		}
 	}
 	
-	public void ajouterAlbum(Album album) {
-		lesDonnees.add(album);	
-	}
-	
 }

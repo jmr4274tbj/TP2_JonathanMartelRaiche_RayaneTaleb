@@ -36,7 +36,6 @@ public class ControleurFenetreArtistes implements ActionListener {
 		private JButton btnModifier;
 		private JButton btnSupprimer;
 		private JLabel lblImageArtiste;
-		private JLabel lblImageAlbum;
 		private JTable jtableArtistes;
 		private ModeleArtiste modeleArtiste;
 		private File file;
@@ -45,7 +44,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 		public ControleurFenetreArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
 				JButton btnRemplacer, JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom, 
 				JButton btnNouveau, JButton btnAjouter, JButton btnModifier, JButton btnSupprimer, 
-				JLabel lblImageArtiste, JLabel lblImageAlbum, JTable jtableArtistes, ModeleArtiste modeleArtiste) {
+				JLabel lblImageArtiste, JTable jtableArtistes, ModeleArtiste modeleArtiste) {
 			this.txtRecherche = txtRecherche;
 			this.btnRecherche = btnRecherche;
 			this.btnQuitter = btnQuitter;
@@ -58,7 +57,6 @@ public class ControleurFenetreArtistes implements ActionListener {
 			this.btnModifier = btnModifier;
 			this.btnSupprimer = btnSupprimer;
 			this.lblImageArtiste = lblImageArtiste;
-			this.lblImageAlbum = lblImageAlbum;
 			this.jtableArtistes = jtableArtistes;
 			this.modeleArtiste = modeleArtiste;;
 		}
@@ -77,15 +75,14 @@ public class ControleurFenetreArtistes implements ActionListener {
 				if(jtableArtistes.getRowCount() == 0) {
 					JOptionPane.showMessageDialog(null, "Aucun artiste(s) trouvé(s) pour le terme " + terme + ".", 
 							"ERREUR!", JOptionPane.ERROR_MESSAGE);
-				}
-				
+				}			
 				
 			} else if (evenement.getSource() == btnNouveau) {
-				txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1)); //AUTO INCREMENT
+				txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1)); 
 				txtNom.setText("");
 				txtNom.setEditable(true);
 				chckbxMembre.setSelected(false);
-				chckbxMembre.setFocusable(true);
+				chckbxMembre.setEnabled(true);
 				ImageIcon image = new ImageIcon(FenetreArtistes.class.getResource("images_artistes/image_artiste_default.png"));
 				lblImageArtiste.setIcon(image);
 				
@@ -156,8 +153,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 						GestionArtistes gestionnaire = new GestionArtistes();
 						
 						if (gestionnaire.modifierArtisteBD(artiste)){
-							modeleArtiste.modifierArtiste(numLigne, artiste);
-							//viderChamps();
+							modeleArtiste.modifierArtiste(numLigne, artiste);						
 						}	
 						
 						if (modeleArtiste.getRowCount() == 0) {
@@ -192,6 +188,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 					
 					if (gestionnaire.supprimerArtisteBD(artiste1)){
 						modeleArtiste.supprimerArtiste(numLigne1);
+						viderChamps();
 					}
 					
 		            if (modeleArtiste.getRowCount() == 0) {
@@ -199,10 +196,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 		            } else {
 		            	btnSupprimer.setEnabled(true);
 		            }
-				}		
-				
-				// si aucune ligne sélectionnée
-		        if(numLigne1 == -1) {
+				} else {
 		            JOptionPane.showMessageDialog(null, "Sélectionnez une ligne avant.",
 		            		"Suppression", JOptionPane.INFORMATION_MESSAGE);
 		        }
@@ -217,18 +211,15 @@ public class ControleurFenetreArtistes implements ActionListener {
 					} catch (IOException e) {
 						JOptionPane.showMessageDialog(null, "Probl\\u00E9me d'ouverture du fichier");
 					}
-					
-					 //lblImageArtiste.setIcon(new ImageIcon(new ImageIcon(artiste.getPhoto()).getImage())); 
+					 
 					 lblImageArtiste.setIcon(new ImageIcon(image.getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
-
 				}
 			}		
-
-	}
+	    }
 			
 
 		private void viderChamps() {
-			txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1)); //AUTO INCREMENT
+			txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1));
 			txtNom.setText("");
 			chckbxMembre.setSelected(false);
 			ImageIcon image = new ImageIcon(FenetreArtistes.class.getResource("images_artistes/image_artiste_default.png"));

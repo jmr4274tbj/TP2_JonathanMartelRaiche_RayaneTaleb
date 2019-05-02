@@ -6,5 +6,4 @@ public class Main {
 		FenetreIdentification fenetre = new FenetreIdentification();
 		fenetre.setVisible(true); 
 	}
-
 }

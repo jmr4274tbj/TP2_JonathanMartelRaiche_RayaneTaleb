@@ -26,12 +26,10 @@ public class FenetreIdentification extends JFrame {
 	private JButton btnQuitter;
 	private FenetreChoixTraitements fct = new FenetreChoixTraitements(this);
 
-	/**
-	 * Create the frame.
-	 */
 	public FenetreIdentification() {
+		super();
 		setTitle("Gestion des Albums");
-		setSize(425, 220);
+		setSize(410, 220);
 		
 		lblNomDutilisateur = new JLabel("Nom d'utilisateur");
 		lblNomDutilisateur.setFont(new Font("Monospace", Font.PLAIN, 14));
@@ -43,15 +41,13 @@ public class FenetreIdentification extends JFrame {
 		lblConnexionLapplication.setFont(new Font("Monospace", Font.BOLD, 14));
 
 		txtNomDutilisateur = new JTextField(10);
-		txtNomDutilisateur.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtNomDutilisateur.setText("bobleprogrammeur");
-		//txtNomDutilisateur.setColumns(10);
+		txtNomDutilisateur.setFont(new Font("Monospace", Font.PLAIN, 14));
+		txtNomDutilisateur.setText("bobprogrammeur");
 
 		txtMotDePasse = new JPasswordField(10);
 		txtMotDePasse.setFont(new Font("Monospace", Font.PLAIN, 14));
 		txtMotDePasse.setText("bob1234");
 		txtMotDePasse.setEchoChar('*');
-		//txtMotDePasse.setColumns(10);
 
 		btnValider = new JButton("Valider");
 		btnQuitter = new JButton("Quitter");
@@ -60,7 +56,6 @@ public class FenetreIdentification extends JFrame {
 		GridBagConstraints gbc = new GridBagConstraints();;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		gbc.fill = GridBagConstraints.BOTH;
-		//gbc.weightx = 0; gbc.weighty = 0;
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -88,6 +83,7 @@ public class FenetreIdentification extends JFrame {
 		pan.add(txtMotDePasse, gbc);	
 	
 		add(pan);
+		
 		setLayout(new FlowLayout()); 
 		add(btnValider);	
 		add(btnQuitter);	
