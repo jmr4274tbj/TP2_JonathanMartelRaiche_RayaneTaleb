@@ -2,26 +2,25 @@ package interface_graphique;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
-import gestion.Album;
-import gestion.Artiste;
 import gestion.ControleConnexion;
 import gestion.GestionAlbums;
 import gestion.GestionArtistes;
 import gestion.ControleurFenetreArtistes;
 import gestion.ControleurSelectionTableArtistes;
-import gestion.ControleurClickTableArtistes;
+import gestion.ControleurDoubleClickTableArtistes;
 import gestion.ModeleArtiste;
 import gestion.RendererCentre;
 import gestion.RendererGrasCentre;
 import java.awt.Insets;
-import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -71,87 +70,128 @@ public class FenetreArtistes extends JDialog {
 	public FenetreArtistes(FenetreChoixTraitements parent) {
 		super( parent, true );
 		setTitle("Gestion des artistes");
-		setSize(1000, 1000);
-		//this.parent = parent;
+		setBounds(100, 100, 789, 576);
+		getContentPane().setLayout(null);
 		
 		ControleConnexion.connecter();
 		
 		lblRechercherUnArtiste = new JLabel("Rechercher un artiste");
+		lblRechercherUnArtiste.setBounds(20, 11, 168, 14);
+		getContentPane().add(lblRechercherUnArtiste);
 		
 		txtRecherche = new JTextField();
 		txtRecherche.setColumns(10);
+		txtRecherche.setBounds(20, 36, 391, 30);
+		getContentPane().add(txtRecherche);
+		txtRecherche.setColumns(10);
 
 		btnRecherche = new JButton("Recherche");
+		btnRecherche.setBounds(421, 36, 117, 30);
+		getContentPane().add(btnRecherche);
 		
 		btnQuitter = new JButton("Quitter");
+		btnQuitter.setBounds(638, 36, 117, 30);
+		getContentPane().add(btnQuitter);
 		
 		lblArtistes = new JLabel("Artistes");
+		lblArtistes.setBounds(20, 89, 150, 21);
+		lblArtistes.setFont(new Font("Monospace", Font.BOLD, 15));
+		getContentPane().add(lblArtistes);
 
 		lblImageArtiste = new JLabel();
-		//lblImageArtiste.setPreferredSize(new Dimension(30, 30));
-		// TEST
-		image = new ImageIcon(FenetreArtistes.class.getResource("images_artistes/image_artiste_default.png"));
-		lblImageArtiste.setIcon(image);
-		// FIN TEST
+		lblImageArtiste.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImageArtiste.setBounds(20, 121, 150, 150);
+		getContentPane().add(lblImageArtiste);
 		
 		lblImageAlbum = new JLabel();
-		//lblImageArtiste.setPreferredSize(new Dimension(30, 30));
-		// TEST
-		image = new ImageIcon(FenetreArtistes.class.getResource("images_albums/image_album_default.png"));
-		lblImageAlbum.setIcon(image);
-		// FIN TEST
+		lblImageAlbum.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImageAlbum.setBounds(550, 352, 150, 150);
+		getContentPane().add(lblImageAlbum);
 
 		btnRemplacer = new JButton("Remplacer");
+		btnRemplacer.setBounds(35, 295, 117, 30);
+		getContentPane().add(btnRemplacer);
 
 		lblInformations = new JLabel("Informations");
+		lblInformations.setFont(new Font("Monospace", Font.BOLD, 15));
+		lblInformations.setBounds(20, 349, 186, 21);
+		getContentPane().add(lblInformations);
 
 		lblNumro = new JLabel("Num\u00E9ro");
+		lblNumro.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNumro.setBounds(20, 390, 79, 21);
+		getContentPane().add(lblNumro);
 
 		lblNom = new JLabel("Nom");
+		lblNom.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNom.setBounds(20, 419, 79, 21);
+		getContentPane().add(lblNom);
 
-		chckbxMembre = new JCheckBox("");
-		chckbxMembre.setFocusable(false);
-		
-		
+		chckbxMembre = new JCheckBox();
+		chckbxMembre.setEnabled(false);
+		chckbxMembre.setBounds(69, 446, 21, 23);
+		getContentPane().add(chckbxMembre);
+			
 		lblMembre = new JLabel("Membre");
+		lblMembre.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMembre.setBounds(20, 448, 79, 21);
+		getContentPane().add(lblMembre);
 
 		txtNumro = new JTextField();
-		txtNumro.setText("Num\u00E9ro");
+		txtNumro.setBounds(72, 391, 198, 20);
 		txtNumro.setColumns(10);
 		txtNumro.setEditable(false);
+		getContentPane().add(txtNumro);
 
 		txtNom = new JTextField();
-		txtNom.setText("Nom");
+		txtNom.setBounds(72, 419, 198, 20);
 		txtNom.setColumns(10);
 		txtNom.setEditable(false);
+		getContentPane().add(txtNom);
 
 		btnNouveau = new JButton("Nouveau");
+		btnNouveau.setBounds(638, 121, 117, 30);
+		getContentPane().add(btnNouveau);
 
 		btnAjouter = new JButton("Ajouter");
+		btnAjouter.setBounds(638, 177, 117, 30);
+		getContentPane().add(btnAjouter);
 
 		btnModifier = new JButton("Modifier");
+		btnModifier.setBounds(638, 237, 117, 30);
+		getContentPane().add(btnModifier);
 
 		btnSupprimer = new JButton("Supprimer");
-
-		lblImageAlbum = new JLabel();		
-		//lblImageAlbum.setPreferredSize(new Dimension(30, 30));
-		// TEST
-		lblImageAlbum.setIcon(image);
-		// FIN TEST
+		btnSupprimer.setBounds(638, 295, 117, 30);
+		getContentPane().add(btnSupprimer);
 		
 		modeleArtiste = new ModeleArtiste(gestionArtistes.getListeArtistes());
 		jtableArtistes = new JTable(modeleArtiste);
 		jtableArtistes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jtableArtistes.getColumnModel().getColumn(0).setCellRenderer(new RendererGrasCentre());
 		jtableArtistes.getColumnModel().getColumn(1).setCellRenderer(new RendererCentre());
-		scroListeArtistes = new JScrollPane(jtableArtistes);
+		scroListeArtistes = new JScrollPane();
+		
+		scroListeArtistes.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroListeArtistes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroListeArtistes.setBounds(194, 121, 420, 204);
+		getContentPane().add(scroListeArtistes);
+		
+		scroListeArtistes.setViewportView(jtableArtistes);
 		
 		modeleListeAlbums = new DefaultListModel<String>();
 		jlistAlbums = new JList<String>(modeleListeAlbums);
 		jlistAlbums.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scroListeAlbums = new JScrollPane(jlistAlbums);
+		scroListeAlbums = new JScrollPane();
 		
-		ControleurClickTableArtistes gestionTable = new ControleurClickTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
+		scroListeAlbums.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroListeAlbums.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroListeAlbums.setBounds(292, 352, 198, 150);
+		getContentPane().add(scroListeAlbums);
+		
+		scroListeAlbums.setViewportView(jlistAlbums);
+	
+		ControleurDoubleClickTableArtistes gestionTable = new ControleurDoubleClickTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
 				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
 				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
 		
@@ -163,118 +203,13 @@ public class FenetreArtistes extends JDialog {
 				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
 				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
 		
-		jtableArtistes.addMouseListener(gestionTable);
-		jtableArtistes.getSelectionModel().addListSelectionListener(gestionSelectionTable);
-		
-		jlistAlbums.getSelectionModel().addListSelectionListener(gestionSelectionListe);	
-		
-		
-		JPanel pan = new JPanel(new GridBagLayout());    
-		GridBagConstraints gbc = new GridBagConstraints();
-		  	   
-	    gbc.insets = new Insets(10, 10, 10, 10);
-		gbc.fill = GridBagConstraints.BOTH;
-		
-		gbc.weightx = 0;
-		gbc.weighty = 0;	
-	
-		gbc.gridx = 2;
-		gbc.gridy = 1;
-		pan.add(lblRechercherUnArtiste, gbc);
-
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.gridx = 2;
-		gbc.gridy = 2;
-		pan.add(txtRecherche, gbc);
-
-		gbc.gridx = 4;
-		gbc.gridy = 2;
-		pan.add(btnRecherche, gbc);
-
-		gbc.gridx = 9;
-		gbc.gridy = 2;	
-		pan.add(btnQuitter, gbc);
-		
-		gbc.gridx = 2;
-		gbc.gridy = 4;
-		pan.add(lblArtistes, gbc);
-		
-		gbc.gridx = 9;
-		gbc.gridy = 4;
-		pan.add(btnNouveau, gbc);	
-
-		gbc.gridx = 2;
-		gbc.gridy = 5;
-		pan.add(lblImageArtiste, gbc);
-		
-		gbc.gridwidth = 2;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 3;
-		gbc.gridy = 5;
-		pan.add(scroListeArtistes, gbc);
-
-		gbc.gridx = 9;
-		gbc.gridy = 5;
-		pan.add(btnAjouter, gbc);
-		
-		gbc.gridx = 2;
-		gbc.gridy = 6;
-		pan.add(btnRemplacer, gbc);	
-
-		gbc.gridx = 9;
-		gbc.gridy = 6;
-		pan.add(btnModifier, gbc);	
-
-		gbc.gridx = 9;
-		gbc.gridy = 7;
-		pan.add(btnSupprimer, gbc);		
-
-		gbc.gridx = 2;
-		gbc.gridy = 9;
-		pan.add(lblInformations, gbc);	
-
-		gbc.gridx = 9;
-		gbc.gridy = 9;
-		pan.add(lblImageAlbum, gbc);
-		
-		gbc.anchor = GridBagConstraints.EAST;
-		gbc.gridx = 2;
-		gbc.gridy = 10;
-		pan.add(lblNumro, gbc);
-		
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.gridx = 3;
-		gbc.gridy = 10;
-		pan.add(txtNumro, gbc);
-		
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 4;
-		gbc.gridy = 10;
-		pan.add(jlistAlbums, gbc);
-		
-		gbc.anchor = GridBagConstraints.EAST;
-		gbc.gridx = 2;
-		gbc.gridy = 11;
-		pan.add(lblNom, gbc);
-		
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.gridx = 3;
-		gbc.gridy = 11;
-		pan.add(txtNom, gbc);
-		
-		gbc.gridx = 2;
-		gbc.gridy = 12;
-		pan.add(lblMembre, gbc);
-		
-		gbc.gridx = 3;
-		gbc.gridy = 12;
-		pan.add(chckbxMembre, gbc);
-
-		add(pan);
-		
 		ControleurFenetreArtistes gestion = new ControleurFenetreArtistes(txtRecherche, btnRecherche, btnQuitter, 
 				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
 				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste);
+		
+		jtableArtistes.addMouseListener(gestionTable);
+		jtableArtistes.getSelectionModel().addListSelectionListener(gestionSelectionTable);
+		jlistAlbums.getSelectionModel().addListSelectionListener(gestionSelectionTable);
 		txtRecherche.addActionListener(gestion);
 		btnRecherche.addActionListener(gestion); 
 		btnQuitter.addActionListener(gestion); 

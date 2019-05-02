@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import interface_graphique.FenetreArtistes;
 
 
-public class ControleurSelectionTableArtistes implements ListSelectionListener {
+public class ControleurSelectionListeArtistes implements ListSelectionListener {
 
 		private JTextField txtRecherche;
 		private JButton btnRecherche;
@@ -43,7 +43,7 @@ public class ControleurSelectionTableArtistes implements ListSelectionListener {
 		private DefaultListModel<String> modeleListeAlbums;
 		
 		
-		public ControleurSelectionTableArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
+		public ControleurSelectionListeArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
 				JButton btnRemplacer, JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom, 
 				JButton btnNouveau, JButton btnAjouter, JButton btnModifier, JButton btnSupprimer, 
 				JLabel lblImageArtiste, JLabel lblImageAlbum, JTable jtableArtistes, ModeleArtiste modeleArtiste, 
@@ -71,24 +71,7 @@ public class ControleurSelectionTableArtistes implements ListSelectionListener {
 		
 		@Override
 		public void valueChanged(ListSelectionEvent e) {			        
-			
-	        int numLigne = jtableArtistes.getSelectedRow();
-	        Artiste artiste = modeleArtiste.getElement(numLigne);    
-	        
-	      //Affichage infos artiste
-	        txtNumro.setText(String.valueOf(artiste.getArtisteId()));
-	        txtNom.setText(artiste.getNom());	 		          	                
-	        lblImageArtiste.setIcon(new ImageIcon(new ImageIcon(artiste.getPhoto())
-	        		.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));          
-	          
-	        if(artiste.isMembre()) { 
-	        	chckbxMembre.setSelected(true);  
-	        } else { 
-	        	chckbxMembre.setSelected(false);  
-	        }   	        
-	             
 	        
 		}
-
 
 }

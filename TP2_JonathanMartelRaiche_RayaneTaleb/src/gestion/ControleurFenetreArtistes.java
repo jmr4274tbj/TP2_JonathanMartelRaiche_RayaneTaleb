@@ -1,6 +1,7 @@
 package gestion;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -218,7 +219,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 					}
 					
 					 //lblImageArtiste.setIcon(new ImageIcon(new ImageIcon(artiste.getPhoto()).getImage())); 
-					 lblImageArtiste.setIcon(new ImageIcon(image));
+					 lblImageArtiste.setIcon(new ImageIcon(image.getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
 
 				}
 			}		

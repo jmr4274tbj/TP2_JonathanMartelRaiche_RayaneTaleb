@@ -34,13 +34,13 @@ public class FenetreIdentification extends JFrame {
 		setSize(425, 220);
 		
 		lblNomDutilisateur = new JLabel("Nom d'utilisateur");
-		lblNomDutilisateur.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNomDutilisateur.setFont(new Font("Monospace", Font.PLAIN, 14));
 
 		lblMotDePasse = new JLabel("Mot de passe");
-		lblMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMotDePasse.setFont(new Font("Monospace", Font.PLAIN, 14));
 
 		lblConnexionLapplication = new JLabel("Connexion \u00E0 l'application");
-		lblConnexionLapplication.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblConnexionLapplication.setFont(new Font("Monospace", Font.BOLD, 14));
 
 		txtNomDutilisateur = new JTextField(10);
 		txtNomDutilisateur.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -48,7 +48,7 @@ public class FenetreIdentification extends JFrame {
 		//txtNomDutilisateur.setColumns(10);
 
 		txtMotDePasse = new JPasswordField(10);
-		txtMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtMotDePasse.setFont(new Font("Monospace", Font.PLAIN, 14));
 		txtMotDePasse.setText("bob1234");
 		txtMotDePasse.setEchoChar('*');
 		//txtMotDePasse.setColumns(10);

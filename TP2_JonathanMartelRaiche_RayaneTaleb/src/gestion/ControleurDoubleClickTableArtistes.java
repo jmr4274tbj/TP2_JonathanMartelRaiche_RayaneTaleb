@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import interface_graphique.FenetreArtistes;
 
 
-public class ControleurClickTableArtistes implements MouseListener {
+public class ControleurDoubleClickTableArtistes implements MouseListener {
 
 		private JTextField txtRecherche;
 		private JButton btnRecherche;
@@ -43,7 +43,7 @@ public class ControleurClickTableArtistes implements MouseListener {
 		private DefaultListModel<String> modeleListeAlbums;
 		
 		
-		public ControleurClickTableArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
+		public ControleurDoubleClickTableArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
 				JButton btnRemplacer, JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom, 
 				JButton btnNouveau, JButton btnAjouter, JButton btnModifier, JButton btnSupprimer, 
 				JLabel lblImageArtiste, JLabel lblImageAlbum, JTable jtableArtistes, ModeleArtiste modeleArtiste, 
@@ -70,21 +70,7 @@ public class ControleurClickTableArtistes implements MouseListener {
 		}
 		
 		@Override
-		public void mouseClicked(MouseEvent e) {
-			int numLigne; 	        
-	        numLigne = jtableArtistes.getSelectedRow();
-	        Artiste artiste = modeleArtiste.getElement(numLigne);
-	          
-	        txtNumro.setText(String.valueOf(artiste.getArtisteId()));
-	        txtNom.setText(artiste.getNom());	 		          	                
-	        lblImageArtiste.setIcon(new ImageIcon(new ImageIcon(artiste.getPhoto()).getImage()));          
-	          
-	        if(artiste.isMembre()) { 
-	        	chckbxMembre.setSelected(true);  
-	        } else { 
-	        	chckbxMembre.setSelected(false);  
-	        }   
-		}
+		public void mouseClicked(MouseEvent e) {}
 		@Override
 		public void mouseEntered(MouseEvent e) {}
 		@Override
@@ -97,11 +83,11 @@ public class ControleurClickTableArtistes implements MouseListener {
 	            //handle double click event.
 	            txtNumro.setEditable(false);
 		        txtNom.setEditable(true);	 	              
-		        chckbxMembre.setFocusable(true);           
+		        chckbxMembre.setEnabled(true);           
 	       } else {
 	    	   txtNumro.setEditable(false);
 		       txtNom.setEditable(false);	 	              
-		       chckbxMembre.setFocusable(false);
+		       chckbxMembre.setEnabled(false);
 	       }
 		}
 
