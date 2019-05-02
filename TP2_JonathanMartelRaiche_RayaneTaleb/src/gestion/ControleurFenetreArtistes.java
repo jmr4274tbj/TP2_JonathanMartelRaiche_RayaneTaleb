@@ -5,16 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
 import interface_graphique.FenetreArtistes;
 
 
@@ -35,6 +38,8 @@ public class ControleurFenetreArtistes implements ActionListener {
 		private JLabel lblImageAlbum;
 		private JTable jtableArtistes;
 		private ModeleArtiste modeleArtiste;
+		private File file;
+		private BufferedImage image;
 		
 		public ControleurFenetreArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
 				JButton btnRemplacer, JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom, 
@@ -60,7 +65,18 @@ public class ControleurFenetreArtistes implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent evenement) {
 			
-			if (evenement.getSource() == btnRecherche) {		
+			if (evenement.getSource() == btnRecherche) {
+				
+				String terme = txtRecherche.getText();
+				
+				GestionArtistes gestionnaire = new GestionArtistes();
+				
+				modeleArtiste.setDonnees(gestionnaire.rechercheArtiste(terme));
+				
+				if(jtableArtistes.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(null, "Aucun artiste(s) trouvé(s) pour le terme " + terme + ".", 
+							"ERREUR!", JOptionPane.ERROR_MESSAGE);
+				}
 				
 				
 			} else if (evenement.getSource() == btnNouveau) {
@@ -189,7 +205,24 @@ public class ControleurFenetreArtistes implements ActionListener {
 		            JOptionPane.showMessageDialog(null, "Sélectionnez une ligne avant.",
 		            		"Suppression", JOptionPane.INFORMATION_MESSAGE);
 		        }
-			} 
+			} else if (evenement.getSource() == btnRemplacer ) {
+				JFileChooser choixFichier = new JFileChooser();
+				
+				if (choixFichier.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					file = choixFichier.getSelectedFile();
+
+					try {
+						image = ImageIO.read(file);
+					} catch (IOException e) {
+						JOptionPane.showMessageDialog(null, "Probl\\u00E9me d'ouverture du fichier");
+					}
+					
+					 //lblImageArtiste.setIcon(new ImageIcon(new ImageIcon(artiste.getPhoto()).getImage())); 
+					 lblImageArtiste.setIcon(new ImageIcon(image));
+
+				}
+			}		
+
 	}
 			
 
@@ -197,7 +230,7 @@ public class ControleurFenetreArtistes implements ActionListener {
 			txtNumro.setText(String.valueOf(modeleArtiste.getRowCount()+1)); //AUTO INCREMENT
 			txtNom.setText("");
 			chckbxMembre.setSelected(false);
-			ImageIcon image = new ImageIcon(FenetreArtistes.class.getResource("image_artiste_default.png"));
+			ImageIcon image = new ImageIcon(FenetreArtistes.class.getResource("images_artistes/image_artiste_default.png"));
 			lblImageArtiste.setIcon(image);
 			
 		}

@@ -119,4 +119,31 @@ public class GestionArtistes {
 		return boolSupp;	   
 	} 
 	
+	public ArrayList <Artiste> rechercheArtiste(String terme) {  
+		ArrayList<Artiste> liste = new ArrayList <Artiste>();  
+		
+		String requete = "SELECT * FROM Artistes WHERE UPPER(nom) LIKE UPPER('%" + terme + "%');";
+		
+		try(Statement statement = connection.createStatement();
+				ResultSet jeuResultats = statement.executeQuery(requete)) {
+			while (jeuResultats.next()){
+				int artisteId = jeuResultats.getInt("artisteId");      
+				String nom = jeuResultats.getString("nom");   
+				boolean membre = jeuResultats.getBoolean("membre");      
+				byte[] photo = jeuResultats.getBytes("photo");
+	     
+				liste.add(new Artiste(artisteId, nom, membre, photo)); 
+			}
+		} catch (SQLException sqle) {   
+			JOptionPane.showMessageDialog(null,          
+			"Problème rencontr\u00E8 : " + sqle.getMessage(),   
+			"Résultat", JOptionPane.ERROR_MESSAGE);  
+			sqle.printStackTrace();
+		}			
+		
+		return liste; 	
+	} 
+	
+	
+	
 }

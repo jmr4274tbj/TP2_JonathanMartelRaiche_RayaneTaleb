@@ -5,15 +5,23 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import gestion.Album;
+import gestion.Artiste;
 import gestion.ControleConnexion;
 import gestion.GestionAlbums;
 import gestion.GestionArtistes;
 import gestion.ControleurFenetreArtistes;
-import gestion.ControleurJTableArtistes;
+import gestion.ControleurSelectionTableArtistes;
+import gestion.ControleurClickTableArtistes;
 import gestion.ModeleArtiste;
 import gestion.RendererCentre;
 import gestion.RendererGrasCentre;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,8 +57,10 @@ public class FenetreArtistes extends JDialog {
 	private JButton btnSupprimer;
 	private JLabel lblImageAlbum;
 	private JTable jtableArtistes;
-	private DefaultListModel<String> modeleAlbum;
+	
+	private DefaultListModel<String> modeleListeAlbums;
 	private JList<String> jlistAlbums;
+	
 	private JScrollPane scroListeArtistes;
 	private JScrollPane scroListeAlbums;
 	private ModeleArtiste modeleArtiste;
@@ -69,7 +79,6 @@ public class FenetreArtistes extends JDialog {
 		lblRechercherUnArtiste = new JLabel("Rechercher un artiste");
 		
 		txtRecherche = new JTextField();
-		txtRecherche.setText("The");
 		txtRecherche.setColumns(10);
 
 		btnRecherche = new JButton("Recherche");
@@ -137,17 +146,27 @@ public class FenetreArtistes extends JDialog {
 		jtableArtistes.getColumnModel().getColumn(1).setCellRenderer(new RendererCentre());
 		scroListeArtistes = new JScrollPane(jtableArtistes);
 		
-		ControleurJTableArtistes gestionTable = new ControleurJTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
-				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
-				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, jlistAlbums, gestionAlbums, gestionArtistes);
-		
-		jtableArtistes.addMouseListener(gestionTable);
-	  	
-		jlistAlbums = new JList<String>();
+		modeleListeAlbums = new DefaultListModel<String>();
+		jlistAlbums = new JList<String>(modeleListeAlbums);
 		jlistAlbums.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scroListeAlbums = new JScrollPane(jlistAlbums);
 		
-		jlistAlbums.addMouseListener(gestionTable);	
+		ControleurClickTableArtistes gestionTable = new ControleurClickTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
+				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
+				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
+		
+		ControleurSelectionTableArtistes gestionSelectionTable = new ControleurSelectionTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
+				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
+				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
+		
+		ControleurSelectionTableArtistes gestionSelectionListe = new ControleurSelectionTableArtistes(txtRecherche, btnRecherche, btnQuitter, 
+				btnRemplacer, chckbxMembre, txtNumro, txtNom, btnNouveau, btnAjouter, btnModifier, btnSupprimer, 
+				lblImageArtiste, lblImageAlbum, jtableArtistes, modeleArtiste, modeleListeAlbums, jlistAlbums, gestionAlbums, gestionArtistes);
+		
+		jtableArtistes.addMouseListener(gestionTable);
+		jtableArtistes.getSelectionModel().addListSelectionListener(gestionSelectionTable);
+		
+		jlistAlbums.getSelectionModel().addListSelectionListener(gestionSelectionListe);	
 		
 		
 		JPanel pan = new JPanel(new GridBagLayout());    
@@ -273,5 +292,6 @@ public class FenetreArtistes extends JDialog {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			
 	}
+	
 	
 }

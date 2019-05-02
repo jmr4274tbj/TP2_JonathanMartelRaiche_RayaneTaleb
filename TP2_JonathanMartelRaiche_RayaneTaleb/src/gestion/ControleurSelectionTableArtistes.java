@@ -3,7 +3,9 @@ package gestion;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -11,11 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import interface_graphique.FenetreArtistes;
 
-public class ControleurJTableArtistes implements MouseListener {
+
+public class ControleurSelectionTableArtistes implements ListSelectionListener {
 
 		private JTextField txtRecherche;
 		private JButton btnRecherche;
@@ -35,13 +40,14 @@ public class ControleurJTableArtistes implements MouseListener {
 		private JList<String> jlistAlbums;
 		private GestionAlbums gestionAlbums;
 		private GestionArtistes gestionArtistes;
+		private DefaultListModel<String> modeleListeAlbums;
 		
 		
-		public ControleurJTableArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
+		public ControleurSelectionTableArtistes(JTextField txtRecherche, JButton btnRecherche, JButton btnQuitter, 
 				JButton btnRemplacer, JCheckBox chckbxMembre, JTextField txtNumro, JTextField txtNom, 
 				JButton btnNouveau, JButton btnAjouter, JButton btnModifier, JButton btnSupprimer, 
 				JLabel lblImageArtiste, JLabel lblImageAlbum, JTable jtableArtistes, ModeleArtiste modeleArtiste, 
-				JList<String> jlistAlbums, GestionAlbums gestionAlbums, GestionArtistes gestionArtistes) {
+				DefaultListModel<String> modeleListeAlbums, JList<String> jlistAlbums, GestionAlbums gestionAlbums, GestionArtistes gestionArtistes) {
 			this.txtRecherche = txtRecherche;
 			this.btnRecherche = btnRecherche;
 			this.btnQuitter = btnQuitter;
@@ -60,47 +66,39 @@ public class ControleurJTableArtistes implements MouseListener {
 			this.jlistAlbums = jlistAlbums;
 			this.gestionAlbums = gestionAlbums;
 			this.gestionArtistes = gestionArtistes;
+			this.modeleListeAlbums = modeleListeAlbums;
 		}
 		
 		@Override
-		public void mouseClicked(MouseEvent e) { 
-	          int numLigne; 	        
-	          numLigne = jtableArtistes.getSelectedRow();
-	          Artiste artiste = modeleArtiste.getElement(numLigne);//méthode ajoutée
+		public void valueChanged(ListSelectionEvent e) {
+			/*int numLigne; 	        
+	        numLigne = jtableArtistes.getSelectedRow();
+	        Artiste artiste = modeleArtiste.getElement(numLigne);	 */       	          
 	          
-	          txtNumro.setText(String.valueOf(artiste.getArtisteId()));
-	          txtNom.setText(artiste.getNom());	 		          	                
-	          lblImageArtiste.setIcon(new ImageIcon(new ImageIcon(artiste.getPhoto()).getImage()));          
+	        /*GestionAlbums gestion = new GestionAlbums();
 	          
-	          if(artiste.isMembre()) { 
-	        	  chckbxMembre.setSelected(true);  
-	          } else { 
-	        	  chckbxMembre.setSelected(false);  
-	          }      	         
-		  	
+	        ArrayList<Album> listeAlbums = gestion.getListeAlbums();	      
+
+	        for(int index = 0; index < listeAlbums.size(); index++) {
+	        	  
+	            Album album = listeAlbums.get(index);
+	        	  
+	        	if(album.getArtisteId() == artiste.getArtisteId())
+	        		  
+	            modeleListeAlbums.addElement(album.getAnnee() + " - " + album.getTitre());
+	        }*/
+	        
 		}
+		
+		/*class ControleurSelectionListeArtistes implements ListSelectionListener {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				
+		        lblImageAlbum.setIcon(new ImageIcon(new ImageIcon(artiste.getPhoto()).getImage()));          	       	          
+		                  
+			}
+		}*/
 
-		@Override
-		public void mouseEntered(MouseEvent e) {}
-		@Override
-		public void mouseExited(MouseEvent e) {}
-		@Override
-		public void mousePressed(MouseEvent e) {
-
-	        if (e.getClickCount() == 2 && !e.isConsumed()) {
-	            e.consume();
-	            //handle double click event.
-	            txtNumro.setEditable(false);
-		        txtNom.setEditable(true);	 	              
-		        chckbxMembre.setFocusable(true);           
-	       } else {
-	    	   txtNumro.setEditable(false);
-		       txtNom.setEditable(false);	 	              
-		       chckbxMembre.setFocusable(false);
-	       }
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {}
 
 }
