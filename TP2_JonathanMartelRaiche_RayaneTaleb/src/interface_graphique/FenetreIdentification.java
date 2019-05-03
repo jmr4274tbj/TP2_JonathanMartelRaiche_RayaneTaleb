@@ -94,7 +94,7 @@ public class FenetreIdentification extends JFrame {
 		txtMotDePasse.addActionListener(gestion);
 		btnQuitter.addActionListener(gestion);
 		
-		setResizable(true);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
