@@ -42,11 +42,9 @@ public class FenetreIdentification extends JFrame {
 
 		txtNomDutilisateur = new JTextField(10);
 		txtNomDutilisateur.setFont(new Font("Monospace", Font.PLAIN, 14));
-		txtNomDutilisateur.setText("bobprogrammeur");
 
 		txtMotDePasse = new JPasswordField(10);
 		txtMotDePasse.setFont(new Font("Monospace", Font.PLAIN, 14));
-		txtMotDePasse.setText("bob1234");
 		txtMotDePasse.setEchoChar('*');
 
 		btnValider = new JButton("Valider");
